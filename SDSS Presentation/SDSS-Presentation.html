@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Exploring Rural Shrink Smart Through Guided Discovery Dashboards</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Denise R. Bradford and Susan R. Vanderplas, PhD" />
+    <meta name="date" content="2022-06-08" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/modal.css" type="text/css" />
+    <link rel="stylesheet" href="css/sizeformat.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class:title-slide-custom
+
+
+&lt;style&gt;
+
+/* colors: #EEB422, #8B0000, #191970, #00a8cc */
+/* define the new color palette here! */
+a, a &gt; code {
+  color: #8B0000;
+  text-decoration: none;
+}
+
+.title-slide h2::after, .mline h1::after {
+  content: '';
+  display: block;
+  border: none;
+  background-color: #8B0000;
+  color: #8B0000;
+  height: 2px;
+}
+
+.remark-slide-content {
+  background-color: #FFFFFF;
+  border-top: 80px solid #8B0000;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  &lt;!-- padding: 1em 2em 1em 2em --&gt;
+  background-image: url(css/UNL.svg);
+	background-position: 2% 98%;
+	background-size: 10%;
+	border-bottom: 0;
+}
+
+.inverse {
+  background-color: #8B0000;
+  &lt;!-- border-top: 20px solid #696969; --&gt;
+  &lt;!-- background-image: none; --&gt;
+	&lt;!-- background-position: 50% 75%; --&gt;
+  &lt;!-- background-size: 150px; --&gt;
+}
+
+.remark-slide-content &gt; h1 {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 45px;
+  margin-top: -95px;
+  margin-left: -00px;
+  color: #FFFFFF;
+}
+
+.title-slide {
+  background-color: #FFFFFF;
+  &lt;!-- border-left: 80px solid 	#8B0000; --&gt;
+  background-image:  url(css/UNL.svg);
+	background-position: 98% 98%;
+	&lt;!-- background-attachment: fixed, fixed; --&gt;
+	background-size: 20%;
+	border-bottom: 0;
+	border: 10px solid 	#8B0000;
+	&lt;!-- background: transparent; --&gt;
+}
+
+.title-slide &gt; h1  {
+  color: #111111;
+  font-size: 32px;
+  text-shadow: none;
+  font-weight: 500;
+  text-align: left;
+  margin-left: 15px;
+  padding-top: 80px;
+}
+.title-slide &gt; h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #111111;
+  text-shadow: none;
+  font-weight: 100;
+  font-size: 28px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide &gt; h3  {
+  color: #111111;
+  text-shadow: none;
+  font-weight: 100;
+  font-size: 28px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -20px;
+}
+
+body {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+
+.remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Roboto';
+  color: #272822;
+  opacity: 1;
+}
+
+.inverse .remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Roboto';
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+.title-slide-custom .remark-slide-number {
+  display: none;
+}
+
+.title-slide-custom h3::after, .mline h1::after {
+  content: '';
+  display: block;
+  border: none;
+  background-color: #8B0000;
+  color: #8B0000;
+  height: 2px;
+}
+
+.title-slide-custom {
+  background-color: #FFFFFF;
+  &lt;!-- border-left: 80px solid 	#8B0000; --&gt;
+  background-image:  url(css/UNL.svg);
+	background-position: 98% 98%;
+	&lt;!-- background-attachment: fixed, fixed; --&gt;
+	background-size: 20%;
+	border-bottom: 0;
+	border: 10px solid 	#8B0000;
+	&lt;!-- background: transparent; --&gt;
+}
+
+.title-slide-custom &gt; h1  {
+  color: #111111;
+  font-size: 40px;
+  text-shadow: none;
+  font-weight: 500;
+  text-align: left;
+  margin-left: 15px;
+  padding-top: 80px;
+  padding-bottom: 10px;
+}
+.title-slide-custom &gt; h2  {
+  margin-top: -25px;
+  padding-bottom: 30px;
+  color: #111111;
+  text-shadow: none;
+  font-weight: 100;
+  font-size: 32px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide-custom &gt; h3  {
+  margin-top: -25px;
+  padding-bottom: -25px;
+  color: #111111;
+  text-shadow: none;
+  font-weight: 100;
+  font-size: 32px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide-custom &gt; h4  {
+  color: #111111;
+  text-shadow: none;
+  font-weight: 100;
+  font-size: 28px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -30px;
+  padding-bottom: -25px;
+}
+.title-slide-custom &gt; h5  {
+  color: #111111;
+  text-shadow: none;
+  font-weight: 100;
+  font-size: 24px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -40px;
+}
+
+&lt;!-- img { --&gt;
+&lt;!--   max-width: 50%; --&gt;
+&lt;!-- } --&gt;
+
+
+&lt;!--------------FOOTER--------- --&gt;
+
+&lt;!-- Divider line above footer --&gt;
+.footer hr{
+  width: 100%;
+}
+
+.footer {
+  font-size: 14px;
+  color: #808080;
+  text-align: center;
+  width: 90%;
+  margin: 3rem auto;
+  font-weight: 300;
+}
+
+.footer.logo {
+  width: 25px;
+  margin: 0px !important;
+}
+
+.rstudio4edu-footer {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.tocify-extend-page {
+  height: 0px !important;
+}
+
+
+&lt;/style&gt;
+
+
+
+
+
+&lt;br&gt;&lt;br&gt;
+# Exploring Rural Shrink Smart Through Guided Discovery Dashboards
+## SDSS 2022
+### June 8, 2022
+#### Denise Bradford
+#### Department of Statistics, University of Nebraska - Lincoln 
+##### <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg> [denise.bradford@huskers.unl.edu](denise.bradford@huskers.unl.edu) 
+&lt;!-- ##### <svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg> [www.deniserbradford.com](https://www.deniserbradford.com/)  --&gt;
+##### <svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> [drbradford12](https://github.com/drbradford12)
+
+&lt;br&gt;&lt;br&gt;
+.medium.emph[
+Theme designed by Emily A. Robinson [www.emilyarobinson.com](https://www.emilyarobinson.com/)
+]
+???
+Thank you for inviting me for a visit today and for attending my talk.
+
+---
+class:primary
+# Outline
+
+&lt;br&gt;
+.large.emph[
++ Introduction to Rural Shrink Smart Project with Iowa State University
+
++ Why Dashboards?
+
++ Dashboard Design and Guided Discovery Learning (GDL)
+
++ Parallel Coordinate Plots (PCPs) and the naive user
+
++ Data Collection and Feedback the loop
+
++ Future Work
+]
+
+???
+In this talk today, I will provide a background of the Rural Shrink Smart Project. I will then provide a framework to way using a dashboard can be helpful to these population discovery of gaining insights from other towns. I will continue to discuss the usefulness of parallel coordinate plots on the naive user. I will conclude with future work.
+
+---
+# Rural Shrink Smart Project
+.center[
+&lt;img src="images/Shrink_Smart_logo.png" width="35%"/&gt;
+]
+
++ &lt;span style="color:darkred"&gt; Project Question:&lt;/span&gt; How do some cities manage to maintain quality of life for residents amid shrinking populations?
+  + Can this be taught? 
+  
+.medium.emph[
+This material is based upon work supported by the National Science Foundation under Grant No. 1952007. We would also like to thank our collaborators at Iowa State, the Iowa League of Cities, and the various Iowa government organizations which publish their data at (https://data.iowa.gov).
+]
+
+---
+# Basic Idea
+
++ Assemble publicly available data sets
+    + Available over lots of different geographic measurements    
+    Lat/Long, Zip code (5 or 9 digit, changes over time), Address, City, Census units, School District, County
+    + May not be complete for small towns    
+    (ACS estimates aren't useful in these areas - not enough people surveyed)
+
++ Assess usability, interpretability and adaptability to new statistical methodology. 
+
++ .emph.cerulean[The Rural Shrink Smart EDA dashboard incorporates two major components]: 
+    + Data Visualization Interface component with Guided Discovery Learning (GDL) principles
+    + Exploratory Data Analysis component utilizing statistical graphical elements, such as maps and Parallel Coordinate Plots (PCPs)
+
+
+---
+# Challenges
+
++ Quality of Life is a subjective assessment
+  + Iowa Small Town poll has measured subjective QOL by decade for one small town in each of the 99 counties in Iowa (same town each year)
+  + Survey response rates keep decreasing over time
+
++ There are objective measures of things that contribute to QOL available in public datasets
+.medium.emph[
+  + School ratings
+  + Town budgets for services
+  + Access to medical care, shopping, etc.
+  + Transportation trends
+  + Demographic shifts
+  + City level cooperative agreements with other government entities and NGOs
+]
+
+---
+# Challenges
+
++ Quality of Life is a subjective assessment
+  + Iowa Small Town poll has measured subjective QOL by decade for one small town in each of the 99 counties in Iowa (same town each year)
+  + Survey response rates keep decreasing over time
+
++ There are objective measures of things that contribute to QOL available in public datasets
+
++ &lt;span style="color:darkred"&gt;Project Question:&lt;/span&gt; How do we leverage &lt;span style="color:blue"&gt;data science&lt;/span&gt;  and &lt;span style="color:blue"&gt;exploratory data methods&lt;/span&gt; to inform town leaders to reduce the shrinkage and maintain reliability?
+    + How does an interactive dashboard of open-source data integrate into overall decision-making?
+    + Can we focus on estimating only things that objective measurements don't capture?
+
+---
+  
+# Identifying Key Metrics
+
+&lt;b&gt;Audience&lt;/b&gt;
+
+.medium.emph[
++ As small rural towns, traditionally, do not have access:
+     + Data scientists 
+     + Ability to easily leverage data collected locally to support decisions 
+
+Our research team will provide communities with data about services in small town Iowa in order to assist with developing strategies to improve quality of life for their residents amid shrinking populations 
+]
+--
+
+&lt;b&gt;Visualization Goals&lt;/b&gt;
+
+.medium.emph[
++ Create a central place for the excess of data to be conveyed in a single comprehensive visual.
+    + We will utilize Parallel Coordinate Plot (PCPs)
++ Create a map feature that will allow for town leaders to understand the distance of essential QoL components (e.g. Fire Dept, Schools, etc.)
++ Add an overview of town general basics related to the seven QoL factors.
+]
+--
+
+&lt;b&gt;Engage People&lt;/b&gt;
+
+.medium.emph[
++ We will assess our visualizations to determine which strategies for user interface and interactive graphics design are most useful to empower town leaders to make discoveries in publicly available data assembled with a focus on items that impact rural quality of life.
+]
+
+---
+# Visualization
+
++ Create a town-focused dashboard that lets leaders see how their town compares to other similar towns (geographically and as measured by the unsupervised statistical analysis)
+
++ Goal is to help towns see what strategies for maintaining QOL work and don't
+
++ Emphasis on things towns are empowered to change
+    + Can't focus on e.g. agricultural policy
+    + City budgets, partnerships with outside entities, services that matter and don't
+--
+
++ How do we best design charts/graphs/UI to make people feel empowered and help them explore the data with an open mind?
+    + How do we incorporate statistical analyses into this? Much of the data will provide qualitative differences but not statistically significant differences.
+    
+---
+# Guiding Design Principles
+
+Our initial set of dashboard design principles are: 
+
++ The town leaders are the focus audience (central focus of the app)
+    + Local Map (Local Essential Services)
+    + Vital Statistics
+
++ Facilitate comparisons with other towns in order to allow the user to explore other potential solutions
+
++ Present the user with peer comparisons in order to widen the scope of exploration beyond the initial set of obvious peers in the local region.
+    + PCP to compare the towns with varying similar features (e.g. economy, population, rurality or user input)  
+
++ Allow for more detailed data and feature requests to improve the dashboard design over time.
+
+---
+
+# Dashboard Design Workflow
+
++ Compile a single data set
+    + rows: Each town
+    + columns: Each variable with appropriate spatial aggregation    
+    e.g. distance to service instead of lat/long
+
++ Unsupervised Analysis
+    + Which towns are most similar based only on the public data?
+ 
++ Dashboard Layout
+    + Which layout will allow the user to engage the most without overwhelming their curiosity?
+   
++ Dashboard Feedback
+    + What elements on the dashboard are useful, confusing, misleading or incorrect from town leaders?
+    
+---
+# Dashboard Design Workflow
+
+## Unsupervised Analysis
+&lt;br&gt;
+
+- Unsupervised clustering methods were used to determine data quality 
+
+--
+
+&lt;br&gt;
+-  During the process, we found that schools, fire departments, post offices and hospitals were missing
+
+--
+
+&lt;br&gt;
+-  Resulted in finding other open source datasets that were used for sanity checks along with adding information of missing data
+    
+???
+
+We found that in towns that the project leaders understood were off. For example, we found that many of the schools that were known to be in the towns were not in the dataset that we were using. Along with the fact that we have the leaflet feature, we could see that schools were in particular parts of towns that we did not see. 
+
+---
+# Dashboard Design Workflow (Layout)
+
+## Dashboard Layout Iterations
+
+.large.emph[
++ Version 1: An idea without limitations of the actual implementation pieces.
+]
+
+.center[
+&lt;img src="images/version1.png" width="75%"/&gt;
+]
+
+---
+# Dashboard Design Workflow (Layout)
+
+## Dashboard Layout Iterations
+
+.large.emph[
++ Version 2: After implementation has been completed and the team notes limitations, we change the interface.
+]
+
+.center[
+&lt;img src="images/version2.png" width="75%"/&gt;
+]
+
+---
+# Dashboard Design Workflow (Layout)
+
+## Dashboard Layout Iterations
+
+.large.emph[
++ Version 3: Now incorporate more literature on dashboard design and user experience, which removes some of the "cool" implementations 
+]
+
+.center[
+&lt;img src="images/version3.png" width="50%"/&gt;
+]
+
+---
+# Dashboard Design Workflow (Layout)
+
+## Dashboard Layout Iterations
+
+.large.emph[
++ Version 4: Finally incorporate a collective feedback from team-leaders that suggests lack of understanding of information
+]
+
+.center[
+&lt;img src="images/version4.png" width="75%"/&gt;
+]
+
+---
+# Dashboard Design Workflow (Layout)
+
+## Dashboard Components 
+
+.large.emph[
++ Map (Town's closest services)
+]
+
+--
+ &lt;br&gt;
+ 
+.large.emph[
++ Vital Statistics (Town-centric and county level)
+]
+--
+ &lt;br&gt;
+ 
+.large.emph[
++ Parallel Coordinate Plot with objective measures related to the QoL Survey
+]
+
+---
+# Dashboard Philosophy 
+
+## Reasoning behind using PCP
+
+&lt;br&gt;
+
+.large.emph[
++ We provide users with a town-centric approach: their town is at the center of our application, and comparisons to other, similar towns are secondary. 
+]
+
+--
+&lt;br&gt;
+
+.large.emph[
++ We allow users to modify a set of suggested comparison towns to indicate other towns of interest.
+]
+---
+class:primary
+
+# Dashboard Philosophy
+
+## PCPs Effectiveness &amp; Novice Users
+
+**Who?** Sukwon Lee, et al. wrote How do People Make Sense of Unfamiliar Visualizations?: A Grounded Model of Novice’s Information Visualization Sensemaking
+  
+**What?** Propose a grounded model of `NO`vice’s information `VI`sualization `S`ensemaking (`NOVIS` model)
++ Framework for assessing a person's ability to interpret a new graphical map
+    + Two Basic Components:
+      + Visual Object (textual objects and non-textual objects)
+      + Frame (frame of content and frame of visual encoding)
+
+**Why?** Advantages of using NOVIS model includes a reproducible framework of understanding graphics.
+&lt;br&gt;&lt;br&gt;
+[Reference Journal](https://ieeexplore.ieee.org/document/7192668)
+
+???
+
+NOVIS Model has been used to compare other graphs such as PCP, Tree Maps and Chord diagrams, which helps with the understanding of why we could use the PCPs. We will use this model to ask questions of our town leaders to gain feedback on what they understand.
+---
+# Dashboard Philosophy
+
+## PCP in Dashboard Develop Reasoning
+
+&lt;br&gt;
++ The large set of publicly available data we have assembled is useful, but we must be careful with how we present this data because it would be easy to overwhelm the user with small details that mask the bigger picture.
+
+  + A small subset of variables of interest to start with, and then 
+  
+  + Allow the user to increase the complexity of the display in accordance with their interest 
+
++ This avoids some of the pitfalls of dashboard design that can easily lead to user overload [Few](https://www.stephen-few.com/)   
+    
+---
+class:primary
+# Dashboard Philosophy 
+
+## Background of Guided Discovery Learning
+
+**Who?** [Michael A. DeDonno](https://doi.org/10.1016/j.lindif.2016.05.023) wrote The influence of IQ on pure discovery and guided discovery learning of a complex real-world task.
+  
+**What?** To investigate the predictive ability of IQ on pure discovery and guided discovery learning of a complex real-world task.
+
+**How is this useful?** As mentioned previously, we not only want to present a complex graphic for novice users, we also want to empower the town-leader users to explore the dashboard, comprehensively. We would like to use the general principles by making sure that the users understands what is being presented to them. 
+
+**Experimentation** We will collect how the users are clicking on the app. This will help us understand if the users are getting better understanding of the app over time.
+
+
+???
+
+
+---
+# Dashboard Philosophy 
+
+## Guided Discovery Learning with Dashboard Design
+&lt;br&gt;
+We leverage the framework of Guided Discovery Learning (GDL) to guide the town leaders to make discoveries using our interactive visualization. By leveraging:
+
++ hints
+
++ feedback
+
++ other helpful information to guide users in interactive exploration
+    e.g. user ignoring the radio buttons to compare similar cities, etc.
+
+---
+# Dashboard Design WorkFlow (Feedback)
+
+## User Testing in Beta
+
+**Audience**
+
++ Groups of Users:
+    + Graphics Group Members (Users know Statistical Graphics)
+    
+    + Rural Shrink Smart Project Members (Users know the project with little background in Statistical Graphics)
+    
+    + Others (Member of doctoral community that has background in educational adaptivity)
+
+---
+# Dashboard Design WorkFlow (Feedback)
+
+## Dashbaord Feedback
+
++ Our feedback from users has two components:
+
+   + User prompted (using a survey and screenshots)
+   
+   + User behaviors being record in the background:
+   
+      + This will help validate issues that are being mentioned in the survey.
+      
+      + e.g. "I'm having a hard time understanding the PCP information", we will see that users are not spending any time on the PCP.
+
+.center[
+&lt;img src="images/feedback_question.png" width="35%"/&gt;
+]
+---
+class:primary
+
+# Future Work
+
++ Continue to incorporate feedback from town leaders.
+&lt;br&gt;
+.center[
+&lt;img src="images/feedback_loop.png" width="50%"/&gt;
+]
+
+
+---
+class:inverse
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[
+# Thank you! 
+### Acknowledgments: Dr. Susan VanderPlas and the ISU - Rural Shrink Smart Project Team
+&lt;br&gt;
+&lt;br&gt;
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg> **denise.bradford@huskers.unl.edu**
+&lt;!-- ##### <svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg> [www.deniserbradford.com](https://www.deniserbradford.com/)  --&gt;
+<svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> **@drbradford12**
+]
+
+???
+
+Thank you for the support of my adviser Dr. Susan VanderPlas and the ISU Rural Shrink Smart
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightlines": true,
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

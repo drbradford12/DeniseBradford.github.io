@@ -1,0 +1,167 @@
+library(here)
+library(readxl)
+library(factoextra)
+library(NbClust)
+library(cluster)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(Rtsne)
+library(tidyr)
+library(units)
+library(corrplot)
+
+source(here::here("Data", "data.R"))
+
+###---- Clustering the towns that are similar ----
+combine.data <- tibble()
+combine.data <-  cities  %>%
+  #Include the hospital distance information
+  left_join(ia_hospitals_dist %>% select(-dist) %>% 
+              dplyr::rename(hosp.dist.mi = dist.mi), by ="City")  %>%
+  #Include the fire department distance information
+  left_join(ia_firedept_dist %>% select(-dist) %>%
+              dplyr::rename(fire.dist.mi = dist.mi) , by = c("City")) %>%
+  #Include the school distance information
+  left_join(ia_schools_dist %>% 
+              select(-dist) %>%  
+              pivot_wider(id_cols = City, names_from = type, values_from = c("dist.mi")) %>% 
+              unnest(Elementary:High) %>% unique() , by ="City") %>%
+  #dplyr::rename(school.dist.mi = dist.mi) %>%
+  #Include the post office distance information
+  left_join(ia_postoffice_dist %>% 
+              select(-dist) %>%
+              dplyr::rename(postoff.dist.mi = dist.mi), by ="City") 
+
+ 
+combine.data.nested <- 
+  combine.data %>%
+  group_by(City, hosp.dist.mi, fire.dist.mi, Elementary, Middle, High, postoff.dist.mi) %>%
+  nest()
+
+
+combine.data.nested <- 
+  combine.data.nested %>% 
+  #remove_rownames %>% 
+  column_to_rownames(var="City")
+
+scaled.combine.data <- scale(combine.data.nested[,-7])
+
+###---- Clustering Analysis -----
+
+#---- K-means clustering ----
+# ++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++
+# Compute k-means with k = 109 to get 10 towns in each cluster of towns
+set.seed(123)
+km.res <- kmeans(scaled.combine.data, 109, nstart = 25)
+print(km.res)
+
+aggregate(combine.data.nested[,-7], by=list(cluster=km.res$cluster), mean)
+
+
+#Add the original data to the clustering 
+dd <- cbind(scaled.combine.data[,-7] %>% as_tibble(), cluster = km.res$cluster) 
+
+dd %<>% 
+  rownames_to_column(var = "City") %>% 
+  as_tibble() 
+
+head(dd)
+
+#Remove the City names to rows and use the cluster column to arrange the data. This will be better in the distance matrix
+dd %<>%  
+  column_to_rownames(var = "City") %>% 
+  arrange(desc(cluster))
+
+#Create the distance matrix with the colnames and rownames 
+distance <- get_dist(dd[,-7], method = "euclidean")
+diss.matrix <- round(as.matrix(distance), 2) %>% as_tibble()
+
+# Cluster number for each of the observations
+head(km.res$cluster, 10)
+
+# Cluster size
+km.res$size
+
+#Cluster means
+km.res$centers
+
+#Visualizing the clusters
+fviz_cluster(km.res, combine.data.nested[,-7], ellipse.type = "norm")
+
+# add the clusters into the data
+combine.data.cluster <- cbind.data.frame(combine.data.nested, cluster = km.res$cluster)
+combine.data.cluster <- rownames_to_column(combine.data.cluster, var = "City") %>% as_tibble() %>% unnest()
+
+save(combine.data.cluster, dd, diss.matrix,combine.data.nested,scaled.combine.data,
+     file = "Data/Clustering_Data.Rdata")
+
+
+
+#---- Using the NBClust function to determine the number of clusters that are important to our data ----
+# ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++
+
+#Using the Euclidean Distance and Complete Method
+set.seed(26)
+clusterNo.complete = NbClust(scaled.combine.data,distance="euclidean",
+                             min.nc=2,max.nc=10,method="complete",index="all")
+
+#Using the Euclidean Distance and Single Method (This may be the best method for our work, since we want to find the cities that are the most similar)
+set.seed(26)
+clusterNo.single = NbClust(scaled.combine.data,distance="euclidean",
+                           min.nc=2,max.nc=10,method="single",index="all")
+
+#Using the Euclidean Distance and Kmeans Method
+set.seed(13)
+clusterNo.kmeans = NbClust(scaled.combine.data,distance="euclidean",
+                           min.nc=2,max.nc=10,method="kmeans",index="all")
+
+#Using the Euclidean Distance and Centroid Method
+set.seed(78)
+clusterNo.centroid = NbClust(scaled.combine.data,distance="euclidean",
+                             min.nc=2,max.nc=10,method="centroid",index="all")
+
+#Let's look at the distance differences in the hospitals only
+scaled.hosp.dist.data <- scale(ia.dist.data.nested[,1]) # Scaling the data by removing the city name and nested data
+
+
+#---- Hierarchical clustering -----
+# ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++
+# Use hcut() which compute hclust and cut the tree
+hc.cut <- hcut(scaled.combine.data, k = 10, hc_method = "complete")
+
+# Visualize dendrogram --- Not Particularly useful
+#fviz_dend(hc.cut, show_labels = FALSE, rect = TRUE)
+
+# Visualize cluster
+fviz_cluster(hc.cut, ellipse.type = "convex")
+
+# PCA clustering
+# pca_ia_data = combine.data[,-c(1:6,20,69)]  
+# 
+# pca_ia_data = pca_ia_data[,-c(1,2,20,69)] %>% 
+#   drop_units() %>% 
+#   mutate(n_post_offices = as.numeric(n_post_offices)) 
+
+M <- cor(scaled.combine.data)
+corrplot(M, method = "circle")  
+
+irispca <- prcomp(scaled.combine.data)
+summary(irispca)
+
+#---- PAM clustering ----
+# ++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++ ++++++++++++++++++++++++
+require(cluster)
+pam.res <- pam(scaled.combine.data, 10)
+
+# Visualize pam clustering
+fviz_cluster(pam.res, geom = "point", ellipse.type = "norm")
+
+
+
+
+
+
+
+
+
