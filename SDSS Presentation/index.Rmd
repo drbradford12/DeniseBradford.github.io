@@ -150,7 +150,7 @@ class:inverse
 ---
 # Rural Shrink Smart Project
 .center[
-<img src="images/Shrink_Smart_logo.png" width="35%"/>
+<img src="images/Shrink_Smart_Logo.png" width="35%"/>
 ]
 
 + <span style="color:darkred"> Project Question:</span> How do some cities manage to maintain quality of life for residents amid shrinking populations?
