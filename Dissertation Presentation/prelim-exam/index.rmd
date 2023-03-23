@@ -1,7 +1,7 @@
 ---
-title: "Presentation Title"
-subtitle: "Event Name"
-author: "Author Name"
+title: "Statistical Impact on Dashbaord Design"
+subtitle: "Comprehensive Exam"
+author: "Denise Bradford"
 date: "Department of Statistics, University of Nebraska - Lincoln"
 output:
   xaringan::moon_reader:
@@ -101,13 +101,13 @@ write("", file = "js-addins.html")
 ```
 
 <br><br><br>
-## Presentation Title
-### Event Name
-#### Presenter/Author name
+## Statistical Impact on Dashbaord Design
+### Comprehensive Exam
+#### Denise Bradford
 #### Department of Statistics, University of Nebraska - Lincoln
-##### `r fa("envelope", fill = "black")` [email.address@huskers.unl.edu](email.address@huskers.unl.edu)
-##### `r fa("home", fill = "black")` [www.homepageurl.com](https://www.homepageurl.com/)
-##### `r fa("github", fill = "black")` [github-user-name](https://github.com/githubname)
+##### `r fa("envelope", fill = "black")` [denise.bradford@huskers.unl.edu](denise.bradford@huskers.unl.edu)
+##### `r fa("home", fill = "black")` [https://www.deniserbradford.com/](https://www.deniserbradford.com/)
+##### `r fa("github", fill = "black")` [drbradford12](https://github.com/drbradford12)
 <br><br>
 .medium[*Slides: https://bit.ly/slide-url*]
 
@@ -115,24 +115,24 @@ write("", file = "js-addins.html")
 class:primary
 # Outline
 
-`r fa_i("chart-bar")` Background
-
-`r fa_i("list")` Research Objectives
+1. Related Literature
+    + Overview of Types of Graphics
+    + Group Psychology in Academia
+    + Statistical Graphics 
+    + Understanding Dashboard Design
+2. Research Objectives
+3. Graphics with ggpcp
+    + Current Status of ggpcp
+    + Additions for interactive elements
+4. Future Work
+5. Questions and Discussion
 
 
 ---
 class:inverse
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-.center[
-# Inverse section slide
-]
+# Background
+
+
 
 ---
 class:primary
@@ -216,7 +216,7 @@ class:inverse
 # Questions?
 <br>
 <br>
-`r fa("envelope", fill = "white")` **email.address@huskers.unl.edu**
-`r fa("home", fill = "white")` **www.homepageurl.com**
-`r fa("github", fill = "white")` **github-user-name**
+`r fa("envelope", fill = "white")` **denise.bradford@huskers.unl.edu**
+`r fa("home", fill = "white")` **https://www.deniserbradford.com/**
+`r fa("github", fill = "white")` **drbradford12**
 ]
