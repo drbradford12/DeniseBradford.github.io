@@ -6,4 +6,4 @@ Welcome, My name is Denise Bradford! I am currently a Ph.D. student in Statistic
 
 Presentation Reference List:
 [SDSS 2022 Presentation](https://drbradford12.github.io/Presentations/SDSS Presentation) 
-[Dissertation Presentation](https://drbradford12.github.io/Presentations/Dissertation Presentation)
+<!-- [Dissertation Presentation](https://drbradford12.github.io/Presentations/Dissertation Presentation) -->
